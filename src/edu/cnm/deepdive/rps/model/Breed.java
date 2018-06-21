@@ -13,12 +13,14 @@ import java.util.Random;
  */
 public enum Breed {
 
-  ROCK, PAPER, SCISSORS;
+  ROCK, PAPER, SCISSORS, LIZARD, SPOCK;
 
   private static int[][] COMBAT_OUTCOMES = {
-      { 0, -1,  1},
-      { 1,  0, -1},
-      {-1,  1,  0}
+      { 0, -1,  1,  1, -1},
+      { 1,  0, -1, -1,  1},
+      {-1,  1,  0,  1, -1},
+      {-1,  1, -1,  0,  1},
+      { 1, -1,  1, -1,  0}
   };
 
   /** Determines the victor in a conflict between 2 {@link Breed} instances. */

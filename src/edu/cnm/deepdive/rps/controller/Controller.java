@@ -15,7 +15,7 @@ import javafx.scene.text.Text;
 
 public class Controller {
 
-  private static final int STEPS_PER_ITERATION = 100;
+  private static final int STEPS_PER_ITERATION = 6667;
   private static final int MAX_SLEEP_PER_ITERATION = 10;
   private static final int MIX_THRESHOLD = 10;
   private static final int PAIRS_TO_MIX = 5;
@@ -52,7 +52,7 @@ public class Controller {
 
   @FXML
   private void initialize() {
-    terrain = new Terrain(new Random());
+    terrain = new Terrain(100, new Random());
     terrainView.setSource(terrain.getCells());
     defaultViewWidth = terrainView.getWidth();
     defaultViewHeight = terrainView.getHeight();
@@ -88,7 +88,7 @@ public class Controller {
   }
 
   @FXML
-  private void stop(ActionEvent actionEvent) {
+  public void stop(ActionEvent actionEvent) {
     running = false;
     runner = null;
     start.setDisable(false);

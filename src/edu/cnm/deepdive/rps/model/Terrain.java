@@ -14,7 +14,7 @@ import java.util.Random;
 public class Terrain {
 
   /** Default size (width and height) of the terrain. */
-  public static final int DEFAULT_SIZE = 128;
+  public static final int DEFAULT_SIZE = 100;
 
   private static final int[][] NEIGHBOR_OFFSETS = {
       {-1, 0},
