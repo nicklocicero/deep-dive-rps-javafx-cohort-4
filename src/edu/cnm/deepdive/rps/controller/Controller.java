@@ -41,8 +41,6 @@ public class Controller {
 
   private double defaultViewHeight;
   private double defaultViewWidth;
-  private double fitViewHeight;
-  private double fitViewWidth;
   private String iterationFormat;
   private Terrain terrain;
   private boolean running = false;
@@ -55,8 +53,6 @@ public class Controller {
     terrain = new Terrain(new Random());
     defaultViewWidth = terrainView.getWidth();
     defaultViewHeight = terrainView.getHeight();
-    fitViewWidth = viewScroller.getWidth();
-    fitViewHeight = viewScroller.getHeight();
     iterationFormat = iterationsLabel.getText();
     terrainView.setSource(terrain.getCells());
     draw();
@@ -66,8 +62,8 @@ public class Controller {
   @FXML
   private void fitView(ActionEvent actionEvent) {
     if (fitCheckbox.isSelected()) {
-      terrainView.setWidth(fitViewWidth);
-      terrainView.setHeight(fitViewHeight);
+      terrainView.setWidth(viewScroller.getWidth() - 1);
+      terrainView.setHeight(viewScroller.getHeight() - 1);
     } else {
       terrainView.setWidth(defaultViewWidth);
       terrainView.setHeight(defaultViewHeight);
@@ -126,6 +122,7 @@ public class Controller {
     public void run() {
       while (running) {
         synchronized (lock) {
+          terrain.mix((int) mixingSlider.getValue());
           terrain.iterate(STEPS_PER_ITERATION);
         }
         try {

@@ -1,5 +1,6 @@
 package edu.cnm.deepdive.rps.model;
 
+import java.util.Arrays;
 import java.util.Random;
 
 public class Terrain {
@@ -33,15 +34,14 @@ public class Terrain {
 
   public void iterate(int steps) {
     for (int i = 0; i < steps; i++) {
-      int playerRow = rng.nextInt(cells.length);
-      int playerCol = rng.nextInt(cells[playerRow].length);
-      Breed player = cells[playerRow][playerCol];
-      int[] opponentLocation = getRandomNeighbor(playerRow, playerCol);
+      int[] playerLocation = randomLocation();
+      Breed player = cells[playerLocation[0]][playerLocation[1]];
+      int[] opponentLocation = getRandomNeighbor(playerLocation[0], playerLocation[1]);
       Breed opponent = cells[opponentLocation[0]][opponentLocation[1]];
       if (player.play(opponent) == player) {
         cells[opponentLocation[0]][opponentLocation[1]] = player;
       } else {
-        cells[playerRow][playerCol] = opponent;
+        cells[playerLocation[0]][playerLocation[1]] = opponent;
       }
     }
     iterations += steps;
@@ -62,4 +62,42 @@ public class Terrain {
     return iterations;
   }
 
+  private int[] randomLocation() {
+    int row = rng.nextInt(cells.length);
+    return new int[] {
+        row,
+        rng.nextInt(cells[row].length)
+    };
+  }
+
+  public void mix(int numPairs) {
+    for (int i = 0; i < numPairs; i++) {
+      int[] location1 = randomLocation();
+      int[] location2 = randomLocation();
+      while (Arrays.equals(location1, location2)) {
+        location2 = randomLocation();
+      }
+      Breed temp = cells[location1[0]][location1[1]];
+      cells[location1[0]][location1[1]] = cells[location2[0]][location2[1]];
+      cells[location2[0]][location2[1]] = temp;
+    }
+  }
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

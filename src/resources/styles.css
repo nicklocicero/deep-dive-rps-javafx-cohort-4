@@ -1,0 +1,20 @@
+GridPane {
+  -fx-hgap: 10px;
+  -fx-vgap: 10px;
+}
+
+ColumnConstraints {
+  -fx-column-halignment: center;
+}
+
+#iterationsLabel {
+  -fx-font-weight: bold;
+}
+
+ScrollPane {
+  -fx-pref-height: 602;
+  -fx-pref-width: 602;
+  -fx-pannable: true;
+  -fx-hbar-policy: never;
+  -fx-vbar-policy: never;
+}

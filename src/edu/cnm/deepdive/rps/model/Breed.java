@@ -28,15 +28,8 @@ public enum Breed {
   }
 
   public static Breed random(Random rng) {
-    Breed[] choices = values();
+    Breed[] choices = Breed.values();
     return choices[rng.nextInt(choices.length)];
   }
 
 }
-
-
-
-
-
-
-

@@ -19,7 +19,8 @@ public class TerrainView extends Canvas {
       for (int i = 0; i < source.length; i++) {
         for (int j = 0; j < source[i].length; j++) {
           context.setFill(BREED_COLORS[source[i][j].ordinal()]);
-          context.fillOval(j * cellSize, i * cellSize, cellSize, cellSize);
+//          context.fillOval(j * cellSize, i * cellSize, cellSize, cellSize);
+          context.fillRect(j * cellSize, i * cellSize, cellSize, cellSize);
         }
       }
     }
