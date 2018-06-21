@@ -1,20 +1,41 @@
 GridPane {
-  -fx-hgap: 10px;
-  -fx-vgap: 10px;
+  -fx-padding: 10px;
+  -fx-hgap: 5px;
+  -fx-vgap: 5px;
 }
 
-ColumnConstraints {
-  -fx-column-halignment: center;
-}
-
-#iterationsLabel {
+CheckBox {
   -fx-font-weight: bold;
 }
 
+Label {
+  -fx-font-weight: bold;
+}
+
+Button {
+  -fx-font-weight: bold;
+  -fx-pref-width: 100px;
+}
+
 ScrollPane {
+  -fx-background-color: black;
+  -fx-min-width: 602;
+  -fx-min-height: 602;
   -fx-pref-height: 602;
   -fx-pref-width: 602;
   -fx-pannable: true;
   -fx-hbar-policy: never;
   -fx-vbar-policy: never;
+}
+
+.scroll-pane > .viewport {
+  -fx-background-color: transparent;
+}
+
+/*.scroll-pane {*/
+  /*-fx-background-color: black;*/
+/*}*/
+
+Slider {
+  -fx-max-width: 180px;
 }

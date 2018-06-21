@@ -16,7 +16,9 @@ import javafx.scene.text.Text;
 public class Controller {
 
   private static final int STEPS_PER_ITERATION = 100;
-  private static final long MAX_SLEEP_PER_ITERATION = 10;
+  private static final int MAX_SLEEP_PER_ITERATION = 10;
+  private static final int MIX_THRESHOLD = 10;
+  private static final int PAIRS_TO_MIX = 5;
 
   @FXML
   private ResourceBundle resources;
@@ -51,10 +53,11 @@ public class Controller {
   @FXML
   private void initialize() {
     terrain = new Terrain(new Random());
+    terrainView.setSource(terrain.getCells());
     defaultViewWidth = terrainView.getWidth();
     defaultViewHeight = terrainView.getHeight();
     iterationFormat = iterationsLabel.getText();
-    terrainView.setSource(terrain.getCells());
+    speedSlider.setMax(MAX_SLEEP_PER_ITERATION);
     draw();
     timer = new Timer();
   }
@@ -62,8 +65,8 @@ public class Controller {
   @FXML
   private void fitView(ActionEvent actionEvent) {
     if (fitCheckbox.isSelected()) {
-      terrainView.setWidth(viewScroller.getWidth() - 1);
-      terrainView.setHeight(viewScroller.getHeight() - 1);
+      terrainView.setWidth(viewScroller.getWidth() - 2);
+      terrainView.setHeight(viewScroller.getHeight() - 2);
     } else {
       terrainView.setWidth(defaultViewWidth);
       terrainView.setHeight(defaultViewHeight);
@@ -120,13 +123,20 @@ public class Controller {
 
     @Override
     public void run() {
+      int mixAccumulator = 0;
       while (running) {
+        int mixLevel = (int) mixingSlider.getValue();
+        int sleep = (int) (1 + MAX_SLEEP_PER_ITERATION - speedSlider.getValue());
         synchronized (lock) {
-          terrain.mix((int) mixingSlider.getValue());
           terrain.iterate(STEPS_PER_ITERATION);
+          mixAccumulator += mixLevel;
+          if (mixAccumulator >= MIX_THRESHOLD) {
+            terrain.mix(PAIRS_TO_MIX);
+            mixAccumulator = 0;
+          }
         }
         try {
-          Thread.sleep(1 + MAX_SLEEP_PER_ITERATION - (long) speedSlider.getValue());
+          Thread.sleep(sleep);
         } catch (InterruptedException e) {
           // DO NOTHING.
         }
@@ -136,5 +146,3 @@ public class Controller {
   }
 
 }
-
-

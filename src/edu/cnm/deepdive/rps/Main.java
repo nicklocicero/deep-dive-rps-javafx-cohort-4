@@ -15,7 +15,7 @@ public class Main extends Application {
     ResourceBundle bundle = ResourceBundle.getBundle("resources/ui-strings");
     FXMLLoader fxmlLoader = new FXMLLoader(classLoader.getResource("resources/main.fxml"), bundle);
     Parent root = fxmlLoader.load();
-    Scene scene = new Scene(root, 622, 762);
+    Scene scene = new Scene(root);
     stage.setTitle(bundle.getString("window_title"));
     stage.setResizable(false);
     stage.setScene(scene);
